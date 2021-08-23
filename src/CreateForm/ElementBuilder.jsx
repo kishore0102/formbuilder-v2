@@ -1,7 +1,13 @@
 import { Button, Card } from "antd";
 import { OneLineTextfield } from "./elements/OneLineTextfield";
 
-export const ElementBuilder = ({ formDetails, formContents }) => {
+export const ElementBuilder = ({
+  formDetails,
+  formContents,
+  propertyIdToBeRendered,
+  updatePropertyIdToBeRendered,
+  resetFormContents,
+}) => {
   return (
     <div className="site-card-border-less-wrapper">
       <Card
@@ -23,7 +29,7 @@ export const ElementBuilder = ({ formDetails, formContents }) => {
           <label>
             <b>
               <i>
-                <span style={{ fontSize: "large" }}>Form Name :</span>
+                <span>Form Name :</span>
               </i>
             </b>
           </label>
@@ -36,13 +42,27 @@ export const ElementBuilder = ({ formDetails, formContents }) => {
             size={30}
           />
           <Button type="primary">Save Form</Button>
-          <Button danger>Reset</Button>
+          <Button
+            danger
+            onClick={() => {
+              resetFormContents();
+            }}
+          >
+            Reset
+          </Button>
         </div>
         <br />
 
         {formContents.map((input) => {
           if (input.type === "oneLineTextfield") {
-            return <OneLineTextfield key={input.id} formContents={input} />;
+            return (
+              <OneLineTextfield
+                key={input.id}
+                formContents={input}
+                propertyIdToBeRendered={propertyIdToBeRendered}
+                updatePropertyIdToBeRendered={updatePropertyIdToBeRendered}
+              />
+            );
           } else {
             return <span key={input.id}></span>;
           }

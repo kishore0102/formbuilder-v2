@@ -1,11 +1,31 @@
 import React from "react";
 
-export const OneLineTextfield = ({ formContents }) => {
+export const OneLineTextfield = ({
+  formContents,
+  propertyIdToBeRendered,
+  updatePropertyIdToBeRendered,
+}) => {
+  let propertyIdToBeRenderedBorderColor = "1px solid #bbbbbb";
+  if (propertyIdToBeRendered === formContents.id) {
+    propertyIdToBeRenderedBorderColor = "2px solid #ffa600";
+  }
   return (
     <React.Fragment>
       <div style={{ paddingBottom: "10px" }}></div>
-      <div style={{ border: "1px solid #bbbbbb", borderRadius: "5px" }}>
-        <a href="#!" className="list-group-item list-group-item-action">
+      <div
+        style={{
+          borderRadius: "5px",
+        }}
+      >
+        <a
+          href="#!"
+          style={{ border: propertyIdToBeRenderedBorderColor }}
+          key={formContents.id}
+          className="list-group-item list-group-item-action"
+          onClick={() => {
+            updatePropertyIdToBeRendered(formContents.id);
+          }}
+        >
           <div style={{ padding: "7px" }}>
             <div className="row" style={{ paddingBottom: "7px" }}>
               <label>
@@ -41,7 +61,7 @@ export const OneLineTextfield = ({ formContents }) => {
                 className="instruction"
                 style={{ fontStyle: "italic", color: "#888888" }}
               >
-                {formContents.placeholder}
+                #&nbsp;{formContents.placeholder}
               </label>
             </div>
           </div>

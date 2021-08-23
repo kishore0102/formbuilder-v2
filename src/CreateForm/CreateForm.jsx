@@ -10,6 +10,7 @@ import { ElementProperties } from "./ElementProperties";
 export class CreateForm extends React.Component {
   state = {
     count: 0,
+    propertyIdToBeRendered: null,
     formDetails: {
       formName: null,
       formId: null,
@@ -18,10 +19,9 @@ export class CreateForm extends React.Component {
   };
 
   componentDidMount = () => {
-    let formName = prompt("Please enter the form name", "Form Name");
     let timestamp = new Date().getTime();
+    let formName = "form_" + timestamp;
     let formId = "user_" + timestamp;
-    console.log("id = " + formId);
     let formDetails = {
       formName,
       formId,
@@ -29,15 +29,45 @@ export class CreateForm extends React.Component {
     this.setState({ formDetails });
   };
 
+  resetFormContents = () => {
+    this.setState({ formContents: [] });
+    this.setState({ propertyIdToBeRendered: null });
+    this.setState({ count: 0 });
+  };
+
+  updateFormContentForId = (contents) => {
+    let idUpdated = contents.id;
+    let formContents = this.state.formContents;
+    for (let i = 0; i < formContents.length; i++) {
+      if (formContents[i].id === idUpdated) {
+        formContents[i] = contents;
+      }
+    }
+    this.setState({ formContents });
+  };
+
+  deleteFormContentForId = () => {
+    let formContents = this.state.formContents;
+    formContents = formContents.filter(
+      (input) => input.id !== this.state.propertyIdToBeRendered
+    );
+    this.setState({ formContents });
+    this.setState({ propertyIdToBeRendered: null });
+  };
+
+  updatePropertyIdToBeRendered = (id) => {
+    this.setState({ propertyIdToBeRendered: id });
+  };
+
   addOneLineTextFieldToFormContents = (e) => {
     let textField = {
       type: "oneLineTextfield",
       id: this.state.formDetails.formId + "_" + this.state.count,
-      placeholder: "# Default placeholder",
-      label: "Default Label",
+      placeholder: "Default placeholder_" + this.state.count,
+      label: "Default Label_" + this.state.count,
       minlength: 0,
       maxlength: 255,
-      required: true,
+      required: false,
       disabled: true,
     };
     let formContents = this.state.formContents;
@@ -50,8 +80,8 @@ export class CreateForm extends React.Component {
     let textField = {
       type: "textArea",
       id: this.state.formDetails.formId + "_" + this.state.count,
-      placeholder: "# Default placeholder",
-      label: "Default label",
+      placeholder: "Default placeholder_" + this.state.count,
+      label: "Default label_" + this.state.count,
       minlength: 0,
       maxlength: null,
       size: 0,
@@ -68,8 +98,8 @@ export class CreateForm extends React.Component {
     let textField = {
       type: "numberTextfield",
       id: this.state.formDetails.formId + "_" + this.state.count,
-      placeholder: "Default placeholder",
-      label: "Default label",
+      placeholder: "Default placeholder_" + this.state.count,
+      label: "Default label_" + this.state.count,
       cols: 5,
       rows: 5,
       minlength: 0,
@@ -120,6 +150,9 @@ export class CreateForm extends React.Component {
             <ElementBuilder
               formDetails={this.state.formDetails}
               formContents={this.state.formContents}
+              propertyIdToBeRendered={this.state.propertyIdToBeRendered}
+              updatePropertyIdToBeRendered={this.updatePropertyIdToBeRendered}
+              resetFormContents={this.resetFormContents}
             />
           </Col>
           <Col
@@ -132,7 +165,12 @@ export class CreateForm extends React.Component {
               borderRadius: "25px",
             }}
           >
-            <ElementProperties />
+            <ElementProperties
+              propertyIdToBeRendered={this.state.propertyIdToBeRendered}
+              formContents={this.state.formContents}
+              updateFormContentForId={this.updateFormContentForId}
+              deleteFormContentForId={this.deleteFormContentForId}
+            />
           </Col>
         </Row>
       </React.Fragment>
