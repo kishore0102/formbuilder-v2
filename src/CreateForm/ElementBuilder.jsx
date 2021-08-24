@@ -1,4 +1,6 @@
 import { Button, Card } from "antd";
+import { MultilineTextfield } from "./elements/MultilineTextField";
+import { NumberTextfield } from "./elements/NumberTextfield";
 import { OneLineTextfield } from "./elements/OneLineTextfield";
 
 export const ElementBuilder = ({
@@ -45,6 +47,10 @@ export const ElementBuilder = ({
           <Button
             danger
             onClick={() => {
+              let response = window.confirm(
+                "Are you sure about the resetting this form ?"
+              );
+              if (!response) return;
               resetFormContents();
             }}
           >
@@ -57,6 +63,24 @@ export const ElementBuilder = ({
           if (input.type === "oneLineTextfield") {
             return (
               <OneLineTextfield
+                key={input.id}
+                formContents={input}
+                propertyIdToBeRendered={propertyIdToBeRendered}
+                updatePropertyIdToBeRendered={updatePropertyIdToBeRendered}
+              />
+            );
+          } else if (input.type === "numberTextfield") {
+            return (
+              <NumberTextfield
+                key={input.id}
+                formContents={input}
+                propertyIdToBeRendered={propertyIdToBeRendered}
+                updatePropertyIdToBeRendered={updatePropertyIdToBeRendered}
+              />
+            );
+          } else if (input.type === "textarea") {
+            return (
+              <MultilineTextfield
                 key={input.id}
                 formContents={input}
                 propertyIdToBeRendered={propertyIdToBeRendered}

@@ -1,9 +1,10 @@
 import React from "react";
 
-export const OneLineTextfieldProperty = ({
+export const MultilineTextFieldProperty = ({
   formContents,
   updateFormContentForId,
 }) => {
+  const selectValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return (
     <React.Fragment>
       <div style={{ paddingBottom: "10px" }}></div>
@@ -119,12 +120,7 @@ export const OneLineTextfieldProperty = ({
             type="number"
             name="property_minlength_name"
             defaultValue={formContents.minlength}
-            min={1}
             onChange={(e) => {
-              if (e.target.value < 1) {
-                e.target.value = 1;
-                return;
-              }
               let contents = formContents;
               contents.minlength = e.target.value;
               updateFormContentForId(contents);
@@ -152,17 +148,48 @@ export const OneLineTextfieldProperty = ({
             type="number"
             name="property_maxlength_name"
             defaultValue={formContents.maxlength}
-            min={1}
             onChange={(e) => {
-              if (e.target.value < 1) {
-                e.target.value = 1;
-                return;
-              }
               let contents = formContents;
               contents.maxlength = e.target.value;
               updateFormContentForId(contents);
             }}
           />
+        </div>
+      </div>
+      <div style={{ padding: "7px" }}>
+        <div className="row" style={{ paddingBottom: "7px" }}>
+          <label>
+            <b>Number of rows :</b>
+          </label>
+        </div>
+        <div
+          className="row"
+          style={{
+            paddingBottom: "10px",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+          }}
+        >
+          <select
+            id="property_rows_id"
+            name="property_rows_name"
+            style={{ height: "40px", width: "100px" }}
+            onChange={(e) => {
+              let contents = formContents;
+              contents.rows = e.target.value;
+              updateFormContentForId(contents);
+            }}
+          >
+            {selectValues.map((value) => {
+              let isSelected = value === formContents.rows ? true : false;
+              return (
+                <option value={value} selected={isSelected}>
+                  {value}
+                </option>
+              );
+            })}
+            selectv
+          </select>
         </div>
       </div>
     </React.Fragment>

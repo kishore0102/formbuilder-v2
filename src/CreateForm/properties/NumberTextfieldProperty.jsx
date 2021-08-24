@@ -1,6 +1,6 @@
 import React from "react";
 
-export const OneLineTextfieldProperty = ({
+export const NumberTextfieldProperty = ({
   formContents,
   updateFormContentForId,
 }) => {
@@ -115,10 +115,10 @@ export const OneLineTextfieldProperty = ({
         >
           <input
             className="form-control"
-            id="property_minlength_id"
+            id="property_min_id"
             type="number"
-            name="property_minlength_name"
-            defaultValue={formContents.minlength}
+            name="property_min_name"
+            defaultValue={formContents.min}
             min={1}
             onChange={(e) => {
               if (e.target.value < 1) {
@@ -126,7 +126,7 @@ export const OneLineTextfieldProperty = ({
                 return;
               }
               let contents = formContents;
-              contents.minlength = e.target.value;
+              contents.min = e.target.value;
               updateFormContentForId(contents);
             }}
           />
@@ -148,10 +148,10 @@ export const OneLineTextfieldProperty = ({
         >
           <input
             className="form-control"
-            id="property_maxlength_id"
+            id="property_max_id"
             type="number"
-            name="property_maxlength_name"
-            defaultValue={formContents.maxlength}
+            name="property_max_name"
+            defaultValue={formContents.max}
             min={1}
             onChange={(e) => {
               if (e.target.value < 1) {
@@ -159,7 +159,40 @@ export const OneLineTextfieldProperty = ({
                 return;
               }
               let contents = formContents;
-              contents.maxlength = e.target.value;
+              contents.max = e.target.value;
+              updateFormContentForId(contents);
+            }}
+          />
+        </div>
+      </div>
+      <div style={{ padding: "7px" }}>
+        <div className="row" style={{ paddingBottom: "7px" }}>
+          <label>
+            <b>Step size :</b>
+          </label>
+        </div>
+        <div
+          className="row"
+          style={{
+            paddingBottom: "10px",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+          }}
+        >
+          <input
+            className="form-control"
+            id="property_step_id"
+            type="number"
+            name="property_step_name"
+            defaultValue={formContents.step}
+            min={1}
+            onChange={(e) => {
+              if (e.target.value < 1) {
+                e.target.value = 1;
+                return;
+              }
+              let contents = formContents;
+              contents.step = e.target.value;
               updateFormContentForId(contents);
             }}
           />

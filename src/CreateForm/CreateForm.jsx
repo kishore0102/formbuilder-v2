@@ -63,11 +63,11 @@ export class CreateForm extends React.Component {
     let textField = {
       type: "oneLineTextfield",
       id: this.state.formDetails.formId + "_" + this.state.count,
-      placeholder: "Default placeholder_" + this.state.count,
-      label: "Default Label_" + this.state.count,
+      placeholder: "placeholder",
+      label: "Single Line Textfield # " + this.state.count,
       minlength: 0,
       maxlength: 255,
-      required: false,
+      required: true,
       disabled: true,
     };
     let formContents = this.state.formContents;
@@ -78,13 +78,14 @@ export class CreateForm extends React.Component {
 
   addMultiLineTextFieldToFormContents = (e) => {
     let textField = {
-      type: "textArea",
+      type: "textarea",
       id: this.state.formDetails.formId + "_" + this.state.count,
-      placeholder: "Default placeholder_" + this.state.count,
-      label: "Default label_" + this.state.count,
+      placeholder: "placeholder",
+      label: "Multi Line Textfield # " + this.state.count,
+      cols: 5,
+      rows: 5,
       minlength: 0,
-      maxlength: null,
-      size: 0,
+      maxlength: 255,
       required: true,
       disabled: true,
     };
@@ -98,12 +99,11 @@ export class CreateForm extends React.Component {
     let textField = {
       type: "numberTextfield",
       id: this.state.formDetails.formId + "_" + this.state.count,
-      placeholder: "Default placeholder_" + this.state.count,
-      label: "Default label_" + this.state.count,
-      cols: 5,
-      rows: 5,
-      minlength: 0,
-      maxlength: null,
+      placeholder: "placeholder",
+      label: "Number Textfield # " + this.state.count,
+      min: 0,
+      max: 100,
+      step: 1,
       required: true,
       disabled: true,
     };

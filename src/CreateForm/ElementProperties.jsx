@@ -1,4 +1,6 @@
 import { Card } from "antd";
+import { MultilineTextFieldProperty } from "./properties/MultilineTextfieldProperty";
+import { NumberTextfieldProperty } from "./properties/NumberTextfieldProperty";
 import { OneLineTextfieldProperty } from "./properties/OneLineTextfieldProperty";
 
 export const ElementProperties = ({
@@ -57,6 +59,28 @@ export const ElementProperties = ({
           ) {
             return (
               <OneLineTextfieldProperty
+                key={input.id}
+                formContents={input}
+                updateFormContentForId={updateFormContentForId}
+              />
+            );
+          } else if (
+            input.type === "numberTextfield" &&
+            input.id === propertyIdToBeRendered
+          ) {
+            return (
+              <NumberTextfieldProperty
+                key={input.id}
+                formContents={input}
+                updateFormContentForId={updateFormContentForId}
+              />
+            );
+          } else if (
+            input.type === "textarea" &&
+            input.id === propertyIdToBeRendered
+          ) {
+            return (
+              <MultilineTextFieldProperty
                 key={input.id}
                 formContents={input}
                 updateFormContentForId={updateFormContentForId}
